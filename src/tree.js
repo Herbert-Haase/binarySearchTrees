@@ -49,6 +49,18 @@ class Tree {
       }
     }
   }
+  find(value, node = this.root) {
+    if (value === node.value) {
+      return node;
+    } else if (node === null) {
+      return;
+    }
+    if (value < node.value) {
+      return this.find(value, node.left);
+    } else {
+      return this.find(value, node.right);
+    }
+  }
 }
 
 export { Tree };
