@@ -49,6 +49,55 @@ class Tree {
       }
     }
   }
+  deleteItem(value, nodeParent = null, node = this.root, direction = null) {
+    if (value === node.value) {
+      // case 1: no child
+      if (node.left === null && node.right === null) {
+        nodeParent[direction] = null;
+        return;
+        // case 2: one child
+      } else if (node.left === null || node.right === null) {
+        if (node.left === null) {
+          nodeParent[direction] = node.right;
+        } else {
+          nodeParent[direction] = node.left;
+        }
+        return;
+      } else {
+        // case 3: two children
+        if (node.right.left === null) {
+          node.right.left = node.left;
+          nodeParent[direction] = node.right;
+        } else {
+          if (node.right.left === null) {
+            if (node === this.root) {
+              this.root = node.right;
+            } else {
+              nodeParent[direction] = node.right;
+            }
+          } else {
+            node.value = this._deleteItem(
+              (nodeParent = node.right),
+              (node = node.right.left)
+            );
+          }
+        }
+        return;
+      }
+    }
+    if (value < node.value) {
+      this.deleteItem(value, node, node.left, "left");
+    } else {
+      this.deleteItem(value, node, node.right, "right");
+    }
+  }
+  _deleteItem(nodeParent, node) {
+    if (node.left === null) {
+      nodeParent.left = node.right;
+      return node.value;
+    }
+    return this._deleteItem(nodeParent, node);
+  }
   find(value, node = this.root) {
     if (value === node.value) {
       return node;
