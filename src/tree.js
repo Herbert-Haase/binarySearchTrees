@@ -134,7 +134,37 @@ class Tree {
       return resultArray;
     }
   }
-  inOrder(callback) {}
+  postOrder(callback = null) {
+    let resultArray = [];
+    let useDefaultCallback = callback === null;
+    (function _postOrder(callback, node) {
+      // recursive function
+      if (node.left === null && node.right === null) {
+        if (useDefaultCallback) {
+          resultArray.push(node.value); // Collect nodes if using default behavior
+        } else {
+          callback(node); // Execute custom callback
+        }
+        return;
+      }
+
+      if (node.left !== null) {
+        _postOrder(callback, node.left);
+      }
+      if (node.right !== null) {
+        _postOrder(callback, node.right);
+      }
+      if (useDefaultCallback) {
+        resultArray.push(node.value); // Collect nodes if using default behavior
+      } else {
+        callback(node); // Execute custom callback
+      }
+    })(callback, this.root);
+    // Return the array of nodes if using default behavior
+    if (useDefaultCallback) {
+      return resultArray;
+    }
+  }
   preOrder(callback = null) {
     let resultArray = [];
     let useDefaultCallback = callback === null;
@@ -161,7 +191,37 @@ class Tree {
       return resultArray;
     }
   }
-  postOrder(callback) {}
+  inOrder(callback = null) {
+    let resultArray = [];
+    let useDefaultCallback = callback === null;
+    (function _postOrder(callback, node) {
+      // recursive function
+      if (node.left === null && node.right === null) {
+        if (useDefaultCallback) {
+          resultArray.push(node.value); // Collect nodes if using default behavior
+        } else {
+          callback(node); // Execute custom callback
+        }
+        return;
+      }
+
+      if (node.left !== null) {
+        _postOrder(callback, node.left);
+      }
+      if (useDefaultCallback) {
+        resultArray.push(node.value); // Collect nodes if using default behavior
+      } else {
+        callback(node); // Execute custom callback
+      }
+      if (node.right !== null) {
+        _postOrder(callback, node.right);
+      }
+    })(callback, this.root);
+    // Return the array of nodes if using default behavior
+    if (useDefaultCallback) {
+      return resultArray;
+    }
+  }
 }
 
 export { Tree };
