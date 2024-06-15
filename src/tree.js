@@ -76,10 +76,17 @@ class Tree {
               nodeParent[direction] = node.right;
             }
           } else {
-            node.value = this._deleteItem(
+            node.value = _deleteItem(
               (nodeParent = node.right),
               (node = node.right.left)
             );
+          }
+          function _deleteItem(nodeParent, node) {
+            if (node.left === null) {
+              nodeParent.left = node.right;
+              return node.value;
+            }
+            return _deleteItem(nodeParent, node);
           }
         }
         return;
@@ -90,13 +97,6 @@ class Tree {
     } else {
       this.deleteItem(value, node, node.right, "right");
     }
-  }
-  _deleteItem(nodeParent, node) {
-    if (node.left === null) {
-      nodeParent.left = node.right;
-      return node.value;
-    }
-    return this._deleteItem(nodeParent, node);
   }
   find(value, node = this.root) {
     if (value === node.value) {
@@ -134,6 +134,34 @@ class Tree {
       return resultArray;
     }
   }
+  inOrder(callback) {}
+  preOrder(callback = null) {
+    let resultArray = [];
+    let useDefaultCallback = callback === null;
+    (function _preOrder(callback, node) {
+      // recursive function
+      if (useDefaultCallback) {
+        resultArray.push(node.value); // Collect nodes if using default behavior
+      } else {
+        callback(node); // Execute custom callback
+      }
+      if (node.left === null && node.right === null) {
+        return;
+      }
+
+      if (node.left !== null) {
+        _preOrder(callback, node.left);
+      }
+      if (node.right !== null) {
+        _preOrder(callback, node.right);
+      }
+    })(callback, this.root);
+    // Return the array of nodes if using default behavior
+    if (useDefaultCallback) {
+      return resultArray;
+    }
+  }
+  postOrder(callback) {}
 }
 
 export { Tree };
