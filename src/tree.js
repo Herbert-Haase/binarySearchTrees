@@ -110,6 +110,30 @@ class Tree {
       return this.find(value, node.right);
     }
   }
+  levelOrder(callback = null) {
+    const NodeQueue = [this.root];
+    let resultArray = [];
+    let useDefaultCallback = callback === null;
+
+    for (let node of NodeQueue) {
+      if (useDefaultCallback) {
+        resultArray.push(node.value); // Collect nodes if using default behavior
+      } else {
+        callback(node); // Execute custom callback
+      }
+      if (node.left !== null) {
+        NodeQueue.push(node.left);
+      }
+      if (node.right !== null) {
+        NodeQueue.push(node.right);
+      }
+    }
+
+    // Return the array of nodes if using default behavior
+    if (useDefaultCallback) {
+      return resultArray;
+    }
+  }
 }
 
 export { Tree };
