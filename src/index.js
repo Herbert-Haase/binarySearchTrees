@@ -1,6 +1,6 @@
 import "./styles/reset.css";
 import "./styles/style.css";
-import ".tree.js";
+import { Tree } from "./tree.js";
 
 function randomNumbers(amount) {
   const numArr = [];
