@@ -232,6 +232,22 @@ class Tree {
     // Return the larger height + 1 (for the current node)
     return Math.max(leftHeight, rightHeight) + 1;
   }
+  depth(node, rootNode = this.root) {
+    let leftHeight = 0;
+    let rightHeight = 0;
+    return (function _depth(value, node) {
+      if (value === node.value) return 0;
+
+      if (value < node.value) {
+        leftHeight = _depth(value, node.left);
+      } else {
+        rightHeight = _depth(value, node.right);
+      }
+
+      // Return the larger height + 1 (for the current node)
+      return Math.max(leftHeight, rightHeight) + 1;
+    })(node.value, rootNode);
+  }
 }
 
 export { Tree };

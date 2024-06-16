@@ -87,7 +87,12 @@ describe("tests", () => {
     deepEqual(tree.inOrder(), [1, 3, 4, 5, 7, 8, 9, 23, 67, 324, 6345]);
   });
   it("height", () => {
-    equal(tree.height(tree.find(8)), 4);
+    equal(tree.height(tree.find(1)), 2);
+    equal(tree.height(), 4);
+  });
+  it("depth", () => {
+    equal(tree.depth(tree.find(8)), 0);
+    equal(tree.depth(tree.find(7)), 3);
   });
   after(() => {
     const prettyPrint = (node, prefix = "", isLeft = true) => {
