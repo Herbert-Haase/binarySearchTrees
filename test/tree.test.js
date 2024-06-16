@@ -94,6 +94,15 @@ describe("tests", () => {
     equal(tree.depth(tree.find(8)), 0);
     equal(tree.depth(tree.find(7)), 3);
   });
+  it("isBalanced", () => {
+    equal(tree.isBalanced(), true);
+    tree.deleteItem(7);
+    tree.deleteItem(3);
+    equal(tree.isBalanced(), true);
+    tree.deleteItem(5);
+    tree.deleteItem(1);
+    equal(tree.isBalanced(), false);
+  });
   after(() => {
     const prettyPrint = (node, prefix = "", isLeft = true) => {
       if (node === null) {

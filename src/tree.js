@@ -248,6 +248,20 @@ class Tree {
       return Math.max(leftHeight, rightHeight) + 1;
     })(node.value, rootNode);
   }
+  isBalanced() {
+    const lsth = this.height(this.root.left); // leftSubTreeHeight
+    const rsth = this.height(this.root.right); // rightSubTreeHeight
+
+    if (lsth === rsth) {
+      return true; // exact same height
+    }
+    if (lsth + 1 === rsth) {
+      return true; // left is one node smaller
+    }
+    if (lsth === rsth + 1) {
+      return true; // right is one node smaller
+    } else return false;
+  }
 }
 
 export { Tree };
