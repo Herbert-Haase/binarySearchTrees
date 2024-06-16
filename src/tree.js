@@ -194,7 +194,7 @@ class Tree {
   inOrder(callback = null) {
     let resultArray = [];
     let useDefaultCallback = callback === null;
-    (function _postOrder(callback, node) {
+    (function _inOrder(callback, node) {
       // recursive function
       if (node.left === null && node.right === null) {
         if (useDefaultCallback) {
@@ -206,7 +206,7 @@ class Tree {
       }
 
       if (node.left !== null) {
-        _postOrder(callback, node.left);
+        _inOrder(callback, node.left);
       }
       if (useDefaultCallback) {
         resultArray.push(node.value); // Collect nodes if using default behavior
@@ -214,13 +214,23 @@ class Tree {
         callback(node); // Execute custom callback
       }
       if (node.right !== null) {
-        _postOrder(callback, node.right);
+        _inOrder(callback, node.right);
       }
     })(callback, this.root);
     // Return the array of nodes if using default behavior
     if (useDefaultCallback) {
       return resultArray;
     }
+  }
+
+  height(node = this.root) {
+    if (!node) return 0;
+
+    const leftHeight = this.height(node.left);
+    const rightHeight = this.height(node.right);
+
+    // Return the larger height + 1 (for the current node)
+    return Math.max(leftHeight, rightHeight) + 1;
   }
 }
 
