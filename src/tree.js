@@ -262,6 +262,12 @@ class Tree {
       return true; // right is one node smaller
     } else return false;
   }
+  reBalance() {
+    if (!this.isBalanced()) {
+      const newArray = this.inOrder();
+      this.root = this.buildtree(newArray);
+    }
+  }
 }
 
 export { Tree };

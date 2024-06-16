@@ -103,6 +103,16 @@ describe("tests", () => {
     tree.deleteItem(1);
     equal(tree.isBalanced(), false);
   });
+  it("reBalance", () => {
+    equal(tree.isBalanced(), true);
+    tree.deleteItem(7);
+    tree.deleteItem(3);
+    tree.deleteItem(5);
+    tree.deleteItem(1);
+    equal(tree.isBalanced(), false);
+    tree.reBalance();
+    equal(tree.isBalanced(), true);
+  });
   after(() => {
     const prettyPrint = (node, prefix = "", isLeft = true) => {
       if (node === null) {
